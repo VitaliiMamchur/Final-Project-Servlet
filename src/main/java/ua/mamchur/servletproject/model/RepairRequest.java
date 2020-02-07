@@ -10,6 +10,18 @@ public class RepairRequest {
     private User requestCreator;
     private RepairRequestStatus status;
 
+    public RepairRequest() {
+    }
+
+    public RepairRequest(Long id, String theme, String description, Integer price, boolean active, User requestCreator, RepairRequestStatus status) {
+        this.theme = theme;
+        this.description = description;
+        this.price = price;
+        this.active = active;
+        this.requestCreator = requestCreator;
+        this.status = status;
+    }
+
     //Getters and Setters
 
     public Long getId() {

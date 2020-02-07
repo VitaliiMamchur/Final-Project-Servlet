@@ -42,7 +42,7 @@
                     <a class="nav-link" href="/registration">Sign in<span class="sr-only">(current)</span></a>
                 </li>
                 <li class="nav-item active">
-                    <a class="nav-link" href="@{/logout}">Log out</a>
+                    <a class="nav-link" href="/logout">Log out</a>
                 </li>
             </ul>
         </div>
@@ -56,7 +56,7 @@
             <h4 class="card-title mt-3 text-center">Create Account</h4>
             <p class="text-center">Get started with your free account</p>
             <br>
-            <form action="/registration" method="post">
+            <form action="${pageContext.request.contextPath}/registration" method="post">
                 <div class="form-group input-group">
                     <div class="input-group-prepend">
                         <span class="input-group-text"> <i class="fa fa-user"></i> </span>

@@ -42,7 +42,7 @@
                     <a class="nav-link" href="/registration">Sign in<span class="sr-only">(current)</span></a>
                 </li>
                 <li class="nav-item active">
-                    <a class="nav-link" href="@{/logout}">Log out</a>
+                    <a class="nav-link" href="/logout">Log out</a>
                 </li>
             </ul>
         </div>

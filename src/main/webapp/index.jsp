@@ -15,7 +15,7 @@
 <header class="header">
     <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark" role="navigation">
 
-        <a class="navbar-brand" href="/index" role="banner">Main</a>
+        <a class="navbar-brand" href="${pageContext.request.contextPath}/index" role="banner">Main</a>
 
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsDefault" aria-controls="navbarsDefault" aria-expanded="false" aria-label="Переключить навигацию">
             <span class="navbar-toggler-icon"></span>
@@ -24,25 +24,25 @@
         <div class="collapse navbar-collapse" id="navbarsDefault">
             <ul class="navbar-nav mr-auto">
                         <li class="nav-item active">
-                            <a class="nav-link" href="/request">Create Repair Request<span class="sr-only">(current)</span></a>
+                            <a class="nav-link" href="${pageContext.request.contextPath}/request">Create Repair Request<span class="sr-only">(current)</span></a>
                         </li>
                         <li class="nav-item active">
-                            <a class="nav-link" href="/userlist">My Request List<span class="sr-only">(current)</span></a>
+                            <a class="nav-link" href="${pageContext.request.contextPath}/userlist">My Request List<span class="sr-only">(current)</span></a>
                         </li>
                         <li class="nav-item active">
-                            <a class="nav-link" href="/managerlist">Check Request List<span class="sr-only">(current)</span></a>
+                            <a class="nav-link" href="${pageContext.request.contextPath}/managerlist">Check Request List<span class="sr-only">(current)</span></a>
                         </li>
                         <li class="nav-item active">
-                            <a class="nav-link" href="/masterlist">Check Request List<span class="sr-only">(current)</span></a>
+                            <a class="nav-link" href="${pageContext.request.contextPath}/masterlist">Check Request List<span class="sr-only">(current)</span></a>
                         </li>
                     <li class="nav-item active">
-                        <a class="nav-link" href="/login">Log in<span class="sr-only">(current)</span></a>
+                        <a class="nav-link" href="${pageContext.request.contextPath}/login">Log in<span class="sr-only">(current)</span></a>
                     </li>
                     <li class="nav-item active">
-                        <a class="nav-link" href="/registration">Sign in<span class="sr-only">(current)</span></a>
+                        <a class="nav-link" href="${pageContext.request.contextPath}/registration">Sign in<span class="sr-only">(current)</span></a>
                     </li>
                     <li class="nav-item active">
-                        <a class="nav-link" href="@{/logout}">Log out</a>
+                        <a class="nav-link" href="${pageContext.request.contextPath}/logout">Log out</a>
                     </li>
             </ul>
         </div>

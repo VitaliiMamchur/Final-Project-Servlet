@@ -15,6 +15,7 @@ public class JDBCRepairRequestStatusDao implements RepairRequestStatusDao {
     Connection connection;
 
     public String SQL_FIND_BY_STATUS = "SELECT * FROM statuses WHERE status = ?";
+    public String SQL_FIND_BY_ID = "SELECT * FROM statuses WHERE id = ?";
 
 
     public JDBCRepairRequestStatusDao(DataSource dataSource) {
@@ -54,7 +55,21 @@ public class JDBCRepairRequestStatusDao implements RepairRequestStatusDao {
 
     @Override
     public Optional<RepairRequestStatus> findById(Long id) {
-        return Optional.empty();
+        try {
+            PreparedStatement statement = connection.prepareStatement(SQL_FIND_BY_ID);
+            statement.setLong(1, id);
+            ResultSet resultSet = statement.executeQuery();
+            RepairRequestStatus result;
+            if (resultSet.next()) {
+                String status = resultSet.getString("status");
+                result = new RepairRequestStatus(id, status);
+                return Optional.of(result);
+            }
+            return Optional.empty();
+
+        } catch (SQLException e) {
+            throw new IllegalStateException(e);
+        }
     }
 
     @Override
