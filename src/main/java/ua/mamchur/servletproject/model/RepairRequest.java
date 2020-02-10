@@ -13,14 +13,18 @@ public class RepairRequest {
     public RepairRequest() {
     }
 
-    public RepairRequest(Long id, String theme, String description, Integer price, boolean active, User requestCreator, RepairRequestStatus status) {
+    public RepairRequest(Long id, String theme, String description, boolean active, Integer price, String feedback, User requestCreator, RepairRequestStatus status) {
+        this.id = id;
         this.theme = theme;
         this.description = description;
         this.price = price;
+        this.feedback = feedback;
         this.active = active;
         this.requestCreator = requestCreator;
         this.status = status;
     }
+
+
 
     //Getters and Setters
 

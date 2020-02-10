@@ -24,8 +24,10 @@ public class LoginServlet extends HttpServlet {
         String username=request.getParameter("username");
         String password=request.getParameter("password");
         if (userDao.checkUser(username, password)) {
+            String role = userDao.findByUsername(username).get().getRole().getRole();
             HttpSession session = request.getSession();
             session.setAttribute("user", username);
+            session.setAttribute("role", role);
             response.sendRedirect("index");
 
         } else {

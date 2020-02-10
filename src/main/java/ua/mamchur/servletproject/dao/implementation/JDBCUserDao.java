@@ -1,6 +1,9 @@
 package ua.mamchur.servletproject.dao.implementation;
 
+import ua.mamchur.servletproject.dao.DaoFactory;
+import ua.mamchur.servletproject.dao.RoleDao;
 import ua.mamchur.servletproject.dao.UserDao;
+import ua.mamchur.servletproject.model.Role;
 import ua.mamchur.servletproject.model.User;
 import javax.sql.DataSource;
 import java.sql.Connection;
@@ -12,6 +15,9 @@ import java.util.*;
 public class JDBCUserDao implements UserDao {
     private Connection connection;
 
+    DaoFactory daoFactory = new JDBCDaoFactory();
+    RoleDao roleDao = daoFactory.createRoleDao();
+
     public String SQL_UPDATE = "UPDATE usr SET username = ? , password = ? , WHERE id = ?";
     public String SQL_CREATE = "INSERT INTO usr (username, password, active, role_id) VALUES (?, ?, ?, ?)";
     public String SQL_CHECK_USER = "SELECT * FROM usr WHERE username = ? AND password = ?";
@@ -19,6 +25,8 @@ public class JDBCUserDao implements UserDao {
     public String SQL_FIND_BY_USERNAME = "SELECT * FROM usr WHERE username = ?";
     public String SQL_FIND_ALL = "SELECT * FROM usr";
     public String SQL_DELETE = "DELETE FROM usr WHERE id = ?";
+
+
 
     public JDBCUserDao(DataSource dataSource) {
 
@@ -76,7 +84,9 @@ public class JDBCUserDao implements UserDao {
                 Long id = resultSet.getLong("id");
                 String password = resultSet.getString("password");
                 String username = resultSet.getString("username");
-                result = new User(id, username, password);
+                Long roleId = resultSet.getLong("role_id");
+                Role role = roleDao.findById(roleId).get();
+                result = new User(id, username, password, role);
                 return Optional.of(result);
             }
             return Optional.empty();
@@ -88,18 +98,18 @@ public class JDBCUserDao implements UserDao {
 
     @Override
     public boolean checkUser(String username, String password) {
-        boolean st = false;
+        boolean exist = false;
         try {
             PreparedStatement statement = connection.prepareStatement(SQL_CHECK_USER);
             statement.setString(1, username);
             statement.setString(2, password);
             ResultSet rs = statement.executeQuery();
-            st = rs.next();
+            exist = rs.next();
         }
         catch(Exception e) {
             e.printStackTrace();
         }
-        return st;
+        return exist;
     }
 
 

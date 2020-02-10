@@ -29,21 +29,14 @@ public class MasterRepairRequestServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String currentStatus = "CLOSED_REQUEST";
         Long requestID = Long.parseLong(request.getParameter("id"));
-        repairRequestDao.updateById(requestID);
+        repairRequestDao.updateById(requestID, currentStatus);
         response.sendRedirect("masterlist");
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String currentStatus = "ACCEPTED_REQUEST";
-        RepairRequestStatus repairRequestStatus = repairRequestStatusDao.findByStatus(currentStatus);
-        List<RepairRequest> allRepairRequests = repairRequestDao.findAll();
-        List<RepairRequest> repairRequests = new ArrayList<>();
-        for (RepairRequest a : allRepairRequests) {
-            if(a.getStatus().getStatus().equals(repairRequestStatus.getStatus())) {
-                repairRequests.add(a);
-            }
-        }
+        Long statusId = 1L;
+        List<RepairRequest> repairRequests = repairRequestDao.findAllByStatusId(statusId);
         request.setAttribute("repairRequests", repairRequests);
-        request.getServletContext().getRequestDispatcher("/masterlist.jsp").forward(request, response);
+        request.getServletContext().getRequestDispatcher("/masterlist.jsp").include(request, response);
     }
 }

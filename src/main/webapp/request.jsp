@@ -12,63 +12,30 @@
 
 </head>
 <body>
-<header class="header">
-    <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark" role="navigation">
 
-        <a class="navbar-brand" href="/index" role="banner">Main</a>
+    <%@ include file="menu.jspf" %>
 
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsDefault" aria-controls="navbarsDefault" aria-expanded="false" aria-label="Переключить навигацию">
-            <span class="navbar-toggler-icon"></span>
-        </button>
+    <main role="main">
+        <div class="jumbotron">
+            <div class="container">
 
-        <div class="collapse navbar-collapse" id="navbarsDefault">
-            <ul class="navbar-nav mr-auto">
-                <li class="nav-item active">
-                    <a class="nav-link" href="/request">Create Repair Request<span class="sr-only">(current)</span></a>
-                </li>
-                <li class="nav-item active">
-                    <a class="nav-link" href="/userlist">My Request List<span class="sr-only">(current)</span></a>
-                </li>
-                <li class="nav-item active">
-                    <a class="nav-link" href="/managerlist">Check Request List<span class="sr-only">(current)</span></a>
-                </li>
-                <li class="nav-item active">
-                    <a class="nav-link" href="/masterlist">Check Request List<span class="sr-only">(current)</span></a>
-                </li>
-                <li class="nav-item active">
-                    <a class="nav-link" href="/login">Log in<span class="sr-only">(current)</span></a>
-                </li>
-                <li class="nav-item active">
-                    <a class="nav-link" href="/registration">Sign in<span class="sr-only">(current)</span></a>
-                </li>
-                <li class="nav-item active">
-                    <a class="nav-link" href="/logout">Log out</a>
-                </li>
-            </ul>
+                <h1 class="display-3">Create Repair Request</h1>
+                <form action="/request" method="post">
+                    <div><label> Theme : <input type="text" name="theme"  required autofocus/> </label></div>
+                    <div><label> Description: <input type="text" name="description"  required autofocus/> </label></div>
+                    <div><input class="btn btn-primary" type="submit" value="Push Statement"/></div>
+                </form>
+                <br>
+            </div>
         </div>
-    </nav>
-    </br>
-</header>
-<main role="main">
-    <div class="jumbotron">
+    </main>
+
+    <footer role="contentinfo" class="footer">
         <div class="container">
-
-            <h1 class="display-3">Create Repair Request</h1>
-            <form action="/request" method="post">
-                <div><label> Theme : <input type="text" name="theme"  required autofocus/> </label></div>
-                <div><label> Description: <input type="text" name="description"  required autofocus/> </label></div>
-                <div><input class="btn btn-primary" type="submit" value="Push Statement"/></div>
-            </form>
-            <br>
+            <span class="text-muted">© Vitalii Mamchur, 2020</span>
         </div>
-    </div>
+    </footer>
 
-</main>
-<footer role="contentinfo" class="footer">
-    <div class="container">
-        <span class="text-muted">© Vitalii Mamchur, 2020</span>
-    </div>
-</footer>
 </body>
 
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>

@@ -4,6 +4,7 @@
 <head>
     <meta charset="utf-8">
     <title>Login</title>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.8/css/all.css">
     <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
     <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
     <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
@@ -11,46 +12,7 @@
 </head>
 <body class="hm-gradient">
 
-<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.8/css/all.css">
-
-<header class="header">
-    <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark" role="navigation">
-
-        <a class="navbar-brand" href="${pageContext.request.contextPath}/index" role="banner">Main</a>
-
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsDefault" aria-controls="navbarsDefault" aria-expanded="false" aria-label="Переключить навигацию">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-
-        <div class="collapse navbar-collapse" id="navbarsDefault">
-            <ul class="navbar-nav mr-auto">
-                <li class="nav-item active">
-                    <a class="nav-link" href="${pageContext.request.contextPath}/request">Create Repair Request<span class="sr-only">(current)</span></a>
-                </li>
-                <li class="nav-item active">
-                    <a class="nav-link" href="${pageContext.request.contextPath}/userlist">My Request List<span class="sr-only">(current)</span></a>
-                </li>
-                <li class="nav-item active">
-                    <a class="nav-link" href="${pageContext.request.contextPath}/managerlist">Check Request List<span class="sr-only">(current)</span></a>
-                </li>
-                <li class="nav-item active">
-                    <a class="nav-link" href="${pageContext.request.contextPath}/masterlist">Check Request List<span class="sr-only">(current)</span></a>
-                </li>
-                <li class="nav-item active">
-                    <a class="nav-link" href="${pageContext.request.contextPath}/login">Log in<span class="sr-only">(current)</span></a>
-                </li>
-                <li class="nav-item active">
-                    <a class="nav-link" href="${pageContext.request.contextPath}/registration">Sign in<span class="sr-only">(current)</span></a>
-                </li>
-                <li class="nav-item active">
-                    <a class="nav-link" href="${pageContext.request.contextPath}/logout">Log out</a>
-                </li>
-            </ul>
-        </div>
-    </nav>
-    </br>
-</header>
-<br><br>
+<%@ include file="menu.jspf" %>
 
 <div class="container">
     <div class="card bg-light">

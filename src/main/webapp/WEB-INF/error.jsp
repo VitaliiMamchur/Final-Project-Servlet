@@ -12,59 +12,23 @@
 </head>
 <body>
 
-<header class="header">
-    <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark" role="navigation">
+    <%@ include file="../menu.jspf" %>
 
-        <a class="navbar-brand" href="/index" role="banner">Main</a>
+    <main role="main">
+        <div class="jumbotron">
+            <div class="container">
+                <h1 style="color: red">Error 404</h1>
+                <p>The page you are looking for does not exist</p>
+            </div>
 
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsDefault" aria-controls="navbarsDefault" aria-expanded="false" aria-label="Переключить навигацию">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-
-        <div class="collapse navbar-collapse" id="navbarsDefault">
-            <ul class="navbar-nav mr-auto">
-                <li class="nav-item active">
-                    <a class="nav-link" href="/request">Create Repair Request<span class="sr-only">(current)</span></a>
-                </li>
-                <li class="nav-item active">
-                    <a class="nav-link" href="/userlist">My Request List<span class="sr-only">(current)</span></a>
-                </li>
-                <li class="nav-item active">
-                    <a class="nav-link" href="/managerlist">Check Request List<span class="sr-only">(current)</span></a>
-                </li>
-                <li class="nav-item active">
-                    <a class="nav-link" href="/masterlist">Check Request List<span class="sr-only">(current)</span></a>
-                </li>
-                <li class="nav-item active">
-                    <a class="nav-link" href="/login">Log in<span class="sr-only">(current)</span></a>
-                </li>
-                <li class="nav-item active">
-                    <a class="nav-link" href="/registration">Sign in<span class="sr-only">(current)</span></a>
-                </li>
-                <li class="nav-item active">
-                    <a class="nav-link" href="@{/logout}">Log out</a>
-                </li>
-            </ul>
         </div>
-    </nav>
-    </br>
-</header>
+    </main>
 
-<main role="main">
-    <div class="jumbotron">
+    <footer role="contentinfo" class="footer">
         <div class="container">
-            <h1 style="color: red">Error 404</h1>
-            <p>The page you are looking for does not exist</p>
+            <span class="text-muted">© Vitalii Mamchur, 2020</span>
         </div>
-
-    </div>
-</main>
-
-<footer role="contentinfo" class="footer">
-    <div class="container">
-        <span class="text-muted">© Vitalii Mamchur, 2020</span>
-    </div>
-</footer>
+    </footer>
 
 </body>
 
