@@ -1,10 +1,7 @@
 package ua.mamchur.servletproject.servlet;
 
+import ua.mamchur.servletproject.dao.DaoFactory;
 import ua.mamchur.servletproject.dao.UserDao;
-import ua.mamchur.servletproject.dao.implementation.JDBCDaoFactory;
-import ua.mamchur.servletproject.model.Role;
-import ua.mamchur.servletproject.model.User;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -16,8 +13,7 @@ import java.io.IOException;
 @WebServlet(urlPatterns = "/login", name = "login")
 public class LoginServlet extends HttpServlet {
 
-    JDBCDaoFactory daoFactory = new JDBCDaoFactory();
-    UserDao userDao = daoFactory.createUserDao();
+    UserDao userDao = DaoFactory.getInstance().createUserDao();
 
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -36,6 +32,6 @@ public class LoginServlet extends HttpServlet {
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        request.getServletContext().getRequestDispatcher("/login.jsp").forward(request, response);
+        request.getRequestDispatcher("login.jsp").forward(request, response);
     }
 }

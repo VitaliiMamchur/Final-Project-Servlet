@@ -1,6 +1,5 @@
 package ua.mamchur.servletproject.model;
 
-import java.util.Optional;
 import java.util.Set;
 
 public class User {

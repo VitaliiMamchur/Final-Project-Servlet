@@ -14,9 +14,15 @@ import java.util.*;
 
 public class JDBCUserDao implements UserDao {
     private Connection connection;
+    RoleDao roleDao = DaoFactory.getInstance().createRoleDao();
 
-    DaoFactory daoFactory = new JDBCDaoFactory();
-    RoleDao roleDao = daoFactory.createRoleDao();
+    public JDBCUserDao(DataSource dataSource) {
+        try {
+            this.connection = dataSource.getConnection();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 
     public String SQL_UPDATE = "UPDATE usr SET username = ? , password = ? , WHERE id = ?";
     public String SQL_CREATE = "INSERT INTO usr (username, password, active, role_id) VALUES (?, ?, ?, ?)";
@@ -26,22 +32,9 @@ public class JDBCUserDao implements UserDao {
     public String SQL_FIND_ALL = "SELECT * FROM usr";
     public String SQL_DELETE = "DELETE FROM usr WHERE id = ?";
 
-
-
-    public JDBCUserDao(DataSource dataSource) {
-
-        try {
-            this.connection = dataSource.getConnection();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-
     @Override
     public void save(User user) {
-        try {
-            PreparedStatement statement = connection.prepareStatement(SQL_CREATE);
-
+        try (PreparedStatement statement = connection.prepareStatement(SQL_CREATE)){
             statement.setString(1 , user.getUsername());
             statement.setString(2 , user.getPassword());
             statement.setBoolean(3 , user.isActive());
@@ -55,8 +48,7 @@ public class JDBCUserDao implements UserDao {
 
     @Override
     public Optional<User> findById(Long id) {
-        try {
-            PreparedStatement statement = connection.prepareStatement(SQL_FIND_BY_ID);
+        try (PreparedStatement statement = connection.prepareStatement(SQL_FIND_BY_ID)){
             statement.setLong(1, id);
             ResultSet resultSet = statement.executeQuery();
             User result;
@@ -75,8 +67,7 @@ public class JDBCUserDao implements UserDao {
 
     @Override
     public Optional<User> findByUsername(String userName) {
-        try {
-            PreparedStatement statement = connection.prepareStatement(SQL_FIND_BY_USERNAME);
+        try (PreparedStatement statement = connection.prepareStatement(SQL_FIND_BY_USERNAME)){
             statement.setString(1, userName);
             ResultSet resultSet = statement.executeQuery();
             User result;
@@ -99,8 +90,7 @@ public class JDBCUserDao implements UserDao {
     @Override
     public boolean checkUser(String username, String password) {
         boolean exist = false;
-        try {
-            PreparedStatement statement = connection.prepareStatement(SQL_CHECK_USER);
+        try (PreparedStatement statement = connection.prepareStatement(SQL_CHECK_USER)){
             statement.setString(1, username);
             statement.setString(2, password);
             ResultSet rs = statement.executeQuery();
@@ -115,18 +105,14 @@ public class JDBCUserDao implements UserDao {
 
     @Override
     public List<User> findAll() {
-        try {
+        try (PreparedStatement statement = connection.prepareStatement(SQL_FIND_ALL)){
             List<User> users = new ArrayList<>();
-            PreparedStatement statement = connection.prepareStatement(SQL_FIND_ALL);
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
-                //Long id = resultSet.getLong("id");
-                //boolean active = resultSet.getBoolean("active");
                 String password = resultSet.getString("password");
                 String username = resultSet.getString("username");
 
                 User user = new User(username, password);
-
                 users.add(user);
             }
             return users;
@@ -136,8 +122,7 @@ public class JDBCUserDao implements UserDao {
     }
     @Override
     public void update(User user) {
-        try {
-            PreparedStatement statement = connection.prepareStatement(SQL_UPDATE);
+        try (PreparedStatement statement = connection.prepareStatement(SQL_UPDATE)) {
             statement.setString(1 , user.getUsername());
             statement.setString(2 , user.getPassword());
             statement.setLong(3, user.getId());
@@ -149,19 +134,9 @@ public class JDBCUserDao implements UserDao {
 
     @Override
     public void delete(int id) {
-        try {
-            PreparedStatement statement = connection.prepareStatement(SQL_DELETE);
+        try (PreparedStatement statement = connection.prepareStatement(SQL_DELETE)) {
             statement.setLong(1, id);
             statement.executeQuery();
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    @Override
-    public void close()  {
-        try {
-            connection.close();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }

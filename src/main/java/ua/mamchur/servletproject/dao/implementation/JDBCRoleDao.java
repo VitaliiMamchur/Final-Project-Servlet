@@ -12,21 +12,20 @@ import java.util.List;
 import java.util.Optional;
 
 public class JDBCRoleDao implements RoleDao {
+
     private Connection connection;
 
-    public String SQL_FIND_BY_ID = "SELECT * FROM roles WHERE id = ?";
-    public String SQL_FIND_BY_ROLE = "SELECT * FROM roles WHERE role = ?";
-
-    public String SQL_FIND_ALL = "SELECT * FROM roles";
-
     public JDBCRoleDao(DataSource dataSource) {
-
         try {
             this.connection = dataSource.getConnection();
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
+
+    public String SQL_FIND_BY_ID = "SELECT * FROM roles WHERE id = ?";
+    public String SQL_FIND_BY_ROLE = "SELECT * FROM roles WHERE role = ?";
+    public String SQL_FIND_ALL = "SELECT * FROM roles";
 
     @Override
     public void save(Role entity) {
@@ -35,8 +34,7 @@ public class JDBCRoleDao implements RoleDao {
 
     @Override
     public Optional<Role> findById(Long id) {
-        try {
-            PreparedStatement statement = connection.prepareStatement(SQL_FIND_BY_ID);
+        try (PreparedStatement statement = connection.prepareStatement(SQL_FIND_BY_ID)){
             statement.setLong(1, id);
             ResultSet resultSet = statement.executeQuery();
             Role result;
@@ -53,8 +51,7 @@ public class JDBCRoleDao implements RoleDao {
     }
 
     public Role findByRole(String role) {
-        try {
-            PreparedStatement statement = connection.prepareStatement(SQL_FIND_BY_ROLE);
+        try (PreparedStatement statement = connection.prepareStatement(SQL_FIND_BY_ROLE)){
             statement.setString(1, role);
             ResultSet resultSet = statement.executeQuery();
             Role result;
@@ -73,9 +70,8 @@ public class JDBCRoleDao implements RoleDao {
 
     @Override
     public List<Role> findAll() {
-        try {
+        try (PreparedStatement statement = connection.prepareStatement(SQL_FIND_ALL)){
             List<Role> roles = new ArrayList<>();
-            PreparedStatement statement = connection.prepareStatement(SQL_FIND_ALL);
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
                 String roleName = resultSet.getString("role");
@@ -98,14 +94,5 @@ public class JDBCRoleDao implements RoleDao {
     @Override
     public void delete(int id) {
 
-    }
-
-    @Override
-    public void close()  {
-        try {
-            connection.close();
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
     }
 }

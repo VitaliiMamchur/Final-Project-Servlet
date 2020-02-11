@@ -15,30 +15,28 @@
     <div class="container">
         <table class="table">
             <thead class="thead-dark">
-            <tr>
-                <th>Theme</th>
-                <th>Description</th>
-                <th>Price</th>
-                <th>Status</th>
-                <th>FeedBack</th>
-                <th></th>
-            </tr>
+                <tr>
+                    <th>Theme</th>
+                    <th>Description</th>
+                    <th>Price</th>
+                    <th>Status</th>
+                    <th>FeedBack</th>
+                    <th></th>
+                </tr>
             </thead>
             <c:forEach items="${repairRequests}" var="repairRequest">
                 <tr>
-                        <%--                <div th:if="${statement.active == true}">--%>
                     <td>${repairRequest.theme}</td>
                     <td>${repairRequest.description}</td>
                     <td>${repairRequest.price}</td>
                     <td>${repairRequest.statusToString()}</td>
-                    <c:if test="${repairRequest.feedback eq null}">
+                        <c:if test="${repairRequest.feedback eq null}">
                             <form action="${pageContext.request.contextPath}/userlist?id=${repairRequest.id}" method="post">
                                 <td><div><label> Feedback: <input type="text" name="feedback" required/> </label></div></td>
                                 <td ><div><button class="btn btn-info" type="submit">Send feedback</button></div></td>
                             </form>
-                    </c:if>
+                        </c:if>
                     <td>${repairRequest.feedback}</td>
-                        <%--                </div>--%>
                 </tr>
             </c:forEach>
         </table>

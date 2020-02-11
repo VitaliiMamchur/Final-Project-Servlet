@@ -44,6 +44,11 @@
                         <a class="nav-link" href="${pageContext.request.contextPath}/logout">Log out</a>
                     </li>
                 </c:if>
+                <c:if test="${user ne null}">
+                    <li class="nav-item active" style="align-content: end">
+                        <a class="nav-link">You logged as <u>${user}</u></a>
+                    </li>
+                </c:if>
             </ul>
         </div>
     </nav>

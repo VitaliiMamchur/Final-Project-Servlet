@@ -3,7 +3,6 @@ package ua.mamchur.servletproject.dao.implementation;
 import ua.mamchur.servletproject.dao.*;
 
 public class JDBCDaoFactory extends DaoFactory {
-
     @Override
     public UserDao createUserDao() {
         return new JDBCUserDao(ConnectionPoolHolder.getDataSource());

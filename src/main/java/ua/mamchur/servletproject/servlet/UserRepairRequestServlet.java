@@ -3,9 +3,7 @@ package ua.mamchur.servletproject.servlet;
 import ua.mamchur.servletproject.dao.DaoFactory;
 import ua.mamchur.servletproject.dao.RepairRequestDao;
 import ua.mamchur.servletproject.dao.UserDao;
-import ua.mamchur.servletproject.dao.implementation.JDBCDaoFactory;
 import ua.mamchur.servletproject.model.RepairRequest;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -18,14 +16,13 @@ import java.util.List;
 @WebServlet(urlPatterns = "/userlist", name = "userlist")
 public class UserRepairRequestServlet extends HttpServlet {
 
-    DaoFactory daoFactory = new JDBCDaoFactory();
-    UserDao userDao = daoFactory.createUserDao();
-    RepairRequestDao repairRequestDao = daoFactory.createRepairRequestDao();
+    UserDao userDao = DaoFactory.getInstance().createUserDao();
+    RepairRequestDao repairRequestDao = DaoFactory.getInstance().createRepairRequestDao();
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Long requestID = Long.parseLong(request.getParameter("id"));
         String requestStatus = repairRequestDao.findById(requestID).get().getStatus().getStatus();
-        if (!(requestStatus.equals("CLOSED_REQUEST"))) {
+        if (requestStatus.equals("CLOSED_REQUEST")) {
             String feedback = request.getParameter("feedback");
             repairRequestDao.addFeedback(requestID, feedback);
             request.getServletContext().getRequestDispatcher("/userlist.jsp").include(request, response);
@@ -39,6 +36,6 @@ public class UserRepairRequestServlet extends HttpServlet {
         Long userId = userDao.findByUsername(username).get().getId();
         List<RepairRequest> repairRequests = repairRequestDao.findAllByUserId(userId);
         request.setAttribute("repairRequests", repairRequests);
-        request.getServletContext().getRequestDispatcher("/userlist.jsp").include(request, response);
+        request.getRequestDispatcher("userlist.jsp").forward(request, response);
     }
 }

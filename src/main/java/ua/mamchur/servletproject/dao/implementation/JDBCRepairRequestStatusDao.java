@@ -12,14 +12,9 @@ import java.util.List;
 import java.util.Optional;
 
 public class JDBCRepairRequestStatusDao implements RepairRequestStatusDao {
-    Connection connection;
-
-    public String SQL_FIND_BY_STATUS = "SELECT * FROM statuses WHERE status = ?";
-    public String SQL_FIND_BY_ID = "SELECT * FROM statuses WHERE id = ?";
-
+    private Connection connection;
 
     public JDBCRepairRequestStatusDao(DataSource dataSource) {
-
         try {
             this.connection = dataSource.getConnection();
         } catch (SQLException e) {
@@ -27,6 +22,8 @@ public class JDBCRepairRequestStatusDao implements RepairRequestStatusDao {
         }
     }
 
+    public String SQL_FIND_BY_STATUS = "SELECT * FROM statuses WHERE status = ?";
+    public String SQL_FIND_BY_ID = "SELECT * FROM statuses WHERE id = ?";
 
     @Override
     public void save(RepairRequestStatus entity) {
@@ -35,8 +32,7 @@ public class JDBCRepairRequestStatusDao implements RepairRequestStatusDao {
 
     @Override
     public RepairRequestStatus findByStatus(String status) {
-        try {
-            PreparedStatement statement = connection.prepareStatement(SQL_FIND_BY_STATUS);
+        try (PreparedStatement statement = connection.prepareStatement(SQL_FIND_BY_STATUS)){
             statement.setString(1, status);
             ResultSet resultSet = statement.executeQuery();
             RepairRequestStatus result;
@@ -55,8 +51,7 @@ public class JDBCRepairRequestStatusDao implements RepairRequestStatusDao {
 
     @Override
     public Optional<RepairRequestStatus> findById(Long id) {
-        try {
-            PreparedStatement statement = connection.prepareStatement(SQL_FIND_BY_ID);
+        try (PreparedStatement statement = connection.prepareStatement(SQL_FIND_BY_ID)){
             statement.setLong(1, id);
             ResultSet resultSet = statement.executeQuery();
             RepairRequestStatus result;
@@ -85,14 +80,5 @@ public class JDBCRepairRequestStatusDao implements RepairRequestStatusDao {
     @Override
     public void delete(int id) {
 
-    }
-
-    @Override
-    public void close()  {
-        try {
-            connection.close();
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
     }
 }

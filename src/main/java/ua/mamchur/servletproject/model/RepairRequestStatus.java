@@ -7,10 +7,6 @@ public class RepairRequestStatus {
     private String status;
     private Set<RepairRequest> repairRequests;
 
-    public RepairRequestStatus(String status) {
-        this.status = status;
-    }
-
     public RepairRequestStatus(Long id, String status) {
         this.id = id;
         this.status = status;

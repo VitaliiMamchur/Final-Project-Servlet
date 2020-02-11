@@ -23,16 +23,14 @@
             </tr>
             </thead>
             <c:forEach items="${repairRequests}" var="repairRequest">
-            <tr>
-<%--                <div th:if="${statement.active == true}">--%>
+                <tr>
                     <td>${repairRequest.theme}</td>
                     <td>${repairRequest.description}</td>
                     <td>${repairRequest.requestCreator.getUsername()}</td>
                     <form action="${pageContext.request.contextPath}/masterlist?id=${repairRequest.id}" method="post">
                         <td ><div><button type="submit">Close the request</button></div></td>
                     </form>
-<%--                </div>--%>
-            </tr>
+                </tr>
             </c:forEach>
         </table>
     </div>

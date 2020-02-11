@@ -5,7 +5,6 @@
     <meta charset="utf-8">
     <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
     <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <title>Registration</title>
 </head>
 
@@ -33,21 +32,16 @@
                         <span class="input-group-text"> <i class="fa fa-lock"></i> </span>
                     </div>
                     <input name="password" class="form-control" placeholder="Create password" type="password" required>
-                </div> <!-- form-group// -->
+                </div>
 
                 <div class="form-group">
                     <button type="submit" class="btn btn-primary btn-block"> Create Account</button>
-                </div> <!-- form-group// -->
+                </div>
                 <p class="text-center">Have an account? <a href="/login">Log In</a></p>
             </form>
-            <div th:if="${message}" th:fragment="alert (type, message)" class="alert alert-dismissible" th:classappend="'alert-' + ${type}">
-                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                <span th:text="${message}">Test</span>
-            </div>
         </article>
-    </div> <!-- card.// -->
+    </div>
 </div>
-<!--container end.//-->
-<br>
+
 </body>
 </html>

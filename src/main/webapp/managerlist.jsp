@@ -5,11 +5,6 @@
     <meta charset="UTF-8">
     <title>Manager Statement List</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
-    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script src="/js/script.js"></script>
 </head>
 <body>
 
@@ -28,7 +23,6 @@
             </tr>
             </thead>
             <c:forEach items="${repairRequests}" var="repairRequest">
-<%--                <c:if test="${repairRequest.active} eq true">--%>
                     <tr>
                         <td>${repairRequest.theme}</td>
                         <td>${repairRequest.description}</td>
@@ -38,29 +32,12 @@
                             <td ><div><button type="submit" class="btn btn-success">Accept the request</button></div></td>
                         </form>
 
-                        <form action="'javascript:confirmDelete(' + ?declineId=${repairRequest.id} + ');'">
+                        <form action="${pageContext.request.contextPath}/managerlist?declineId=${repairRequest.id}" method="post">
                             <td ><div><button type="submit" class="btn btn-danger">Decline the request</button></div></td>
                         </form>
                     </tr>
-<%--                </c:if>--%>
             </c:forEach>
         </table>
-    </div>
-
-    <div class="modal" id="myModal">
-        <div class="modal-dialog modal-dialog-centered" >
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h4 class="modal-title">Close Statement?</h4>
-                </div>
-                <div class="modal-footer">
-                    <form id="deleteForm" method="post" >
-                        <input type="submit" id="submitBtn" value="Confirm">
-                        <input type="button" value="Cancel" onclick="cancel()">
-                    </form>
-                </div>
-            </div>
-        </div>
     </div>
 
     <footer role="contentinfo" class="footer">
