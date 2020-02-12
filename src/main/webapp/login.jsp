@@ -20,7 +20,7 @@
                 <input type="username"  name="username" class="form-control" placeholder="Login" required>
                 <input type="password" name="password" class="form-control" placeholder="Password" required>
                 <button class="btn btn-lg btn-primary btn-block btn-signin" type="submit">Log in</button>
-                <p class="text-center">Do not have an account? <a href="${pageContext.request.contextPath}/registration">Sign In</a></p>
+                <p class="text-center">Do not have an account? <a href="${pageContext.request.contextPath}/registration">Sign Up</a></p>
             </form>
         </article>
     </div>

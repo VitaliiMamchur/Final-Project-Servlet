@@ -15,9 +15,7 @@ public class AuthorizedFilter implements Filter {
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain chain) throws ServletException, IOException {
         final HttpServletRequest request = (HttpServletRequest) servletRequest;
         final HttpServletResponse response = (HttpServletResponse) servletResponse;
-
-        HttpSession session = request.getSession(false);
-
+        HttpSession session = request.getSession();
 
         if (session.getAttribute("user") != null) {
             servletRequest.getServletContext().getRequestDispatcher("/index").include(request, response);

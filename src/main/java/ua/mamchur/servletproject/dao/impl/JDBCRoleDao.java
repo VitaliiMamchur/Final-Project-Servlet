@@ -36,8 +36,9 @@ public class JDBCRoleDao implements RoleDao {
             ResultSet resultSet = statement.executeQuery();
             Role result;
             if (resultSet.next()) {
+                Long roleId = resultSet.getLong("id");
                 String roleName = resultSet.getString("role");
-                result = new Role(roleName);
+                result = new Role(roleId, roleName);
                 return Optional.of(result);
             }
             return Optional.empty();
