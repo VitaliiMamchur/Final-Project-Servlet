@@ -5,6 +5,7 @@ import ua.mamchur.servletproject.model.RepairRequest;
 import ua.mamchur.servletproject.model.RepairRequestStatus;
 import ua.mamchur.servletproject.model.User;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -41,7 +42,8 @@ public class JDBCRepairRequestDao implements RepairRequestDao {
 
     @Override
     public void save(RepairRequest repairRequest) {
-        try (PreparedStatement statement = connectionPoolHolder.getConnection().prepareStatement(SQL_CREATE)) {
+        try (Connection connection = connectionPoolHolder.getConnection();
+             PreparedStatement statement = connection.prepareStatement(SQL_CREATE)) {
             statement.setString(1, repairRequest.getTheme());
             statement.setString(2, repairRequest.getDescription());
             statement.setBoolean(3, repairRequest.isActive());
@@ -55,7 +57,8 @@ public class JDBCRepairRequestDao implements RepairRequestDao {
 
     @Override
     public Optional<RepairRequest> findById(Long id) {
-        try (PreparedStatement statement = connectionPoolHolder.getConnection().prepareStatement(SQL_FIND_BY_ID)) {
+        try (Connection connection = connectionPoolHolder.getConnection();
+             PreparedStatement statement = connection.prepareStatement(SQL_FIND_BY_ID)) {
             statement.setLong(1, id);
             ResultSet resultSet = statement.executeQuery();
             RepairRequest result;
@@ -89,7 +92,8 @@ public class JDBCRepairRequestDao implements RepairRequestDao {
 
     @Override
     public List<RepairRequest> findAllByStatusId(Long statusId) {
-        try (PreparedStatement statement = connectionPoolHolder.getConnection().prepareStatement(SQL_FIND_ALL_BY_STATUS_ID)) {
+        try (Connection connection = connectionPoolHolder.getConnection();
+             PreparedStatement statement = connection.prepareStatement(SQL_FIND_ALL_BY_STATUS_ID)) {
             List<RepairRequest> repairRequests = new ArrayList<>();
             statement.setLong(1, statusId);
             ResultSet resultSet = statement.executeQuery();
@@ -118,7 +122,8 @@ public class JDBCRepairRequestDao implements RepairRequestDao {
 
     @Override
     public List<RepairRequest> findAllByUserId(Long userId) {
-        try (PreparedStatement statement = connectionPoolHolder.getConnection().prepareStatement(SQL_FIND_ALL_BY_USER_ID)) {
+        try (Connection connection = connectionPoolHolder.getConnection();
+             PreparedStatement statement = connection.prepareStatement(SQL_FIND_ALL_BY_USER_ID)) {
             List<RepairRequest> repairRequests = new ArrayList<>();
             statement.setLong(1, userId);
             ResultSet resultSet = statement.executeQuery();
@@ -148,7 +153,8 @@ public class JDBCRepairRequestDao implements RepairRequestDao {
 
     @Override
     public void updateById(Long id, Long statusId) {
-        try (PreparedStatement statement = connectionPoolHolder.getConnection().prepareStatement(SQL_UPDATE_BY_ID)) {
+        try (Connection connection = connectionPoolHolder.getConnection();
+             PreparedStatement statement = connection.prepareStatement(SQL_UPDATE_BY_ID)) {
             statement.setLong(1, statusId);
             statement.setLong(2, id);
             statement.executeUpdate();
@@ -159,7 +165,8 @@ public class JDBCRepairRequestDao implements RepairRequestDao {
 
     @Override
     public void updateByManagerAccept(Long id, Long statusId, Integer price) {
-        try (PreparedStatement statement = connectionPoolHolder.getConnection().prepareStatement(SQL_UPDATE_BY_MANAGER)) {
+        try (Connection connection = connectionPoolHolder.getConnection();
+             PreparedStatement statement = connection.prepareStatement(SQL_UPDATE_BY_MANAGER)) {
             statement.setLong(1, statusId);
             statement.setInt(2, price);
             statement.setLong(3, id);
@@ -171,7 +178,8 @@ public class JDBCRepairRequestDao implements RepairRequestDao {
 
     @Override
     public void addFeedback(Long requestID, String feedback) {
-        try (PreparedStatement statement = connectionPoolHolder.getConnection().prepareStatement(SQL_ADD_FEEDBACK)) {
+        try (Connection connection = connectionPoolHolder.getConnection();
+             PreparedStatement statement = connection.prepareStatement(SQL_ADD_FEEDBACK)) {
             statement.setString(1, feedback);
             statement.setLong(2, requestID);
             statement.executeUpdate();

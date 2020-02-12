@@ -3,6 +3,7 @@ package ua.mamchur.servletproject.dao.impl;
 import ua.mamchur.servletproject.dao.RepairRequestStatusDao;
 import ua.mamchur.servletproject.model.RepairRequestStatus;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -27,7 +28,8 @@ public class JDBCRepairRequestStatusDao implements RepairRequestStatusDao {
 
     @Override
     public RepairRequestStatus findByStatus(String status) {
-        try (PreparedStatement statement = connectionPoolHolder.getConnection().prepareStatement(SQL_FIND_BY_STATUS)) {
+        try (Connection connection = connectionPoolHolder.getConnection();
+             PreparedStatement statement = connection.prepareStatement(SQL_FIND_BY_STATUS)) {
             statement.setString(1, status);
             ResultSet resultSet = statement.executeQuery();
             RepairRequestStatus result;
@@ -46,7 +48,8 @@ public class JDBCRepairRequestStatusDao implements RepairRequestStatusDao {
 
     @Override
     public Optional<RepairRequestStatus> findById(Long id) {
-        try (PreparedStatement statement = connectionPoolHolder.getConnection().prepareStatement(SQL_FIND_BY_ID)) {
+        try (Connection connection = connectionPoolHolder.getConnection();
+             PreparedStatement statement = connection.prepareStatement(SQL_FIND_BY_ID)) {
             statement.setLong(1, id);
             ResultSet resultSet = statement.executeQuery();
             RepairRequestStatus result;

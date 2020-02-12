@@ -4,6 +4,7 @@ import ua.mamchur.servletproject.dao.UserDao;
 import ua.mamchur.servletproject.model.Role;
 import ua.mamchur.servletproject.model.User;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -30,7 +31,8 @@ public class JDBCUserDao implements UserDao {
 
     @Override
     public void save(User user) {
-        try (PreparedStatement statement = connectionPoolHolder.getConnection().prepareStatement(SQL_CREATE)) {
+        try (Connection connection = connectionPoolHolder.getConnection();
+             PreparedStatement statement = connection.prepareStatement(SQL_CREATE)) {
             statement.setString(1, user.getUsername());
             statement.setString(2, user.getPassword());
             statement.setBoolean(3, user.isActive());
@@ -44,7 +46,8 @@ public class JDBCUserDao implements UserDao {
 
     @Override
     public Optional<User> findById(Long id) {
-        try (PreparedStatement statement = connectionPoolHolder.getConnection().prepareStatement(SQL_FIND_BY_ID)) {
+        try (Connection connection = connectionPoolHolder.getConnection();
+             PreparedStatement statement = connection.prepareStatement(SQL_FIND_BY_ID)) {
             statement.setLong(1, id);
             ResultSet resultSet = statement.executeQuery();
             User result;
@@ -63,7 +66,8 @@ public class JDBCUserDao implements UserDao {
 
     @Override
     public Optional<User> findByUsername(String userName) {
-        try (PreparedStatement statement = connectionPoolHolder.getConnection().prepareStatement(SQL_FIND_BY_USERNAME)) {
+        try (Connection connection = connectionPoolHolder.getConnection();
+             PreparedStatement statement = connection.prepareStatement(SQL_FIND_BY_USERNAME)) {
             statement.setString(1, userName);
             ResultSet resultSet = statement.executeQuery();
             User result;
@@ -87,7 +91,8 @@ public class JDBCUserDao implements UserDao {
     @Override
     public boolean checkUser(String username, String password) {
         boolean exist = false;
-        try (PreparedStatement statement = connectionPoolHolder.getConnection().prepareStatement(SQL_CHECK_USER)) {
+        try (Connection connection = connectionPoolHolder.getConnection();
+             PreparedStatement statement = connection.prepareStatement(SQL_CHECK_USER)) {
             statement.setString(1, username);
             statement.setString(2, password);
             ResultSet rs = statement.executeQuery();
@@ -101,7 +106,8 @@ public class JDBCUserDao implements UserDao {
 
     @Override
     public List<User> findAll() {
-        try (PreparedStatement statement = connectionPoolHolder.getConnection().prepareStatement(SQL_FIND_ALL)) {
+        try (Connection connection = connectionPoolHolder.getConnection();
+             PreparedStatement statement = connection.prepareStatement(SQL_FIND_ALL)) {
             List<User> users = new ArrayList<>();
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
@@ -119,7 +125,8 @@ public class JDBCUserDao implements UserDao {
 
     @Override
     public void update(User user) {
-        try (PreparedStatement statement = connectionPoolHolder.getConnection().prepareStatement(SQL_UPDATE)) {
+        try (Connection connection = connectionPoolHolder.getConnection();
+             PreparedStatement statement = connection.prepareStatement(SQL_UPDATE)) {
             statement.setString(1, user.getUsername());
             statement.setString(2, user.getPassword());
             statement.setLong(3, user.getId());
@@ -131,7 +138,8 @@ public class JDBCUserDao implements UserDao {
 
     @Override
     public void delete(int id) {
-        try (PreparedStatement statement = connectionPoolHolder.getConnection().prepareStatement(SQL_DELETE)) {
+        try (Connection connection = connectionPoolHolder.getConnection();
+             PreparedStatement statement = connection.prepareStatement(SQL_DELETE)) {
             statement.setLong(1, id);
             statement.executeQuery();
         } catch (SQLException e) {

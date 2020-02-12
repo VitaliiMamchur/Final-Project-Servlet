@@ -2,7 +2,6 @@ package ua.mamchur.servletproject.servlet;
 
 import ua.mamchur.servletproject.dao.DaoFactory;
 import ua.mamchur.servletproject.dao.UserDao;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -15,6 +14,7 @@ import java.io.IOException;
 public class LoginServlet extends HttpServlet {
 
     UserDao userDao = DaoFactory.getInstance().createUserDao();
+//    UtilityService utilityService = new UtilityServiceImpl();
 
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

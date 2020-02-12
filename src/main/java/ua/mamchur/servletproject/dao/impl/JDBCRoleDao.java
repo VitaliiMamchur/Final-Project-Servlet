@@ -3,6 +3,7 @@ package ua.mamchur.servletproject.dao.impl;
 import ua.mamchur.servletproject.dao.RoleDao;
 import ua.mamchur.servletproject.model.Role;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -29,7 +30,8 @@ public class JDBCRoleDao implements RoleDao {
 
     @Override
     public Optional<Role> findById(Long id) {
-        try (PreparedStatement statement = connectionPoolHolder.getConnection().prepareStatement(SQL_FIND_BY_ID)) {
+        try (Connection connection = connectionPoolHolder.getConnection();
+             PreparedStatement statement = connection.prepareStatement(SQL_FIND_BY_ID)) {
             statement.setLong(1, id);
             ResultSet resultSet = statement.executeQuery();
             Role result;
@@ -46,7 +48,8 @@ public class JDBCRoleDao implements RoleDao {
     }
 
     public Role findByRole(String role) {
-        try (PreparedStatement statement = connectionPoolHolder.getConnection().prepareStatement(SQL_FIND_BY_ROLE)) {
+        try (Connection connection = connectionPoolHolder.getConnection();
+             PreparedStatement statement = connection.prepareStatement(SQL_FIND_BY_ROLE)) {
             statement.setString(1, role);
             ResultSet resultSet = statement.executeQuery();
             Role result;
@@ -65,7 +68,8 @@ public class JDBCRoleDao implements RoleDao {
 
     @Override
     public List<Role> findAll() {
-        try (PreparedStatement statement = connectionPoolHolder.getConnection().prepareStatement(SQL_FIND_ALL)) {
+        try (Connection connection = connectionPoolHolder.getConnection();
+             PreparedStatement statement = connection.prepareStatement(SQL_FIND_ALL)) {
             List<Role> roles = new ArrayList<>();
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
