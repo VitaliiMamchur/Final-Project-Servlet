@@ -25,7 +25,6 @@ public class RepairRequest {
     }
 
 
-
     //Getters and Setters
 
     public Long getId() {
@@ -92,11 +91,9 @@ public class RepairRequest {
         this.status = status;
     }
 
-    public String statusToString()
-    {
+    public String statusToString() {
         String stringStatus;
-        switch (this.status.getId().intValue())
-        {
+        switch (this.status.getId().intValue()) {
             case 0:
                 stringStatus = "Please wait till manager accept your repair request.";
                 return stringStatus;

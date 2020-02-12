@@ -6,6 +6,7 @@ public class Role {
     private Long id;
     private String role;
     private Set<User> users;
+
     public Role() {
     }
 

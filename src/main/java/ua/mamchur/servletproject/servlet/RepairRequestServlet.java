@@ -15,7 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
-@WebServlet(urlPatterns = "/request", name = "request")
+@WebServlet(urlPatterns = {"/request"}, name = "request")
 public class RepairRequestServlet extends HttpServlet {
 
     UserDao userDao = DaoFactory.getInstance().createUserDao();

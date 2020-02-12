@@ -7,7 +7,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
-@WebFilter(urlPatterns = {"/request","/managerlist","/masterlist","/userlist"})
+@WebFilter(urlPatterns = {"/request", "/managerlist", "/masterlist", "/userlist"})
 public class AuthFilter implements Filter {
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
@@ -29,7 +29,7 @@ public class AuthFilter implements Filter {
             servletRequest.getServletContext().getRequestDispatcher("/login").include(request, response);
         }
 
-        filterChain.doFilter(request,response);
+        filterChain.doFilter(request, response);
     }
 
     @Override

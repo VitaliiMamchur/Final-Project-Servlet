@@ -13,7 +13,7 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.List;
 
-@WebServlet(urlPatterns = "/userlist", name = "userlist")
+@WebServlet(urlPatterns = {"/userlist"}, name = "userlist")
 public class UserRepairRequestServlet extends HttpServlet {
 
     UserDao userDao = DaoFactory.getInstance().createUserDao();

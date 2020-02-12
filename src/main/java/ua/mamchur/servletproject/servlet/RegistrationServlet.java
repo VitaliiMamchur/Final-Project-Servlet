@@ -5,6 +5,7 @@ import ua.mamchur.servletproject.dao.RoleDao;
 import ua.mamchur.servletproject.dao.UserDao;
 import ua.mamchur.servletproject.model.Role;
 import ua.mamchur.servletproject.model.User;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -13,7 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Optional;
 
-@WebServlet(urlPatterns = "/registration", name = "registration")
+@WebServlet(urlPatterns = {"/registration"}, name = "registration")
 public class RegistrationServlet extends HttpServlet {
 
     UserDao userDao = DaoFactory.getInstance().createUserDao();
