@@ -19,10 +19,17 @@ public class UserRepairRequestServlet extends HttpServlet {
     RepairRequestService repairRequestService = new RepairRequestServiceImpl();
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        HttpSession session = request.getSession();
         Long requestID = Long.parseLong(request.getParameter("id"));
         String feedback = request.getParameter("feedback");
-        repairRequestService.addFeedbackByUser(requestID, feedback);
-        response.sendRedirect("userlist");
+        if (repairRequestService.addFeedbackByUser(requestID, feedback)) {
+            session.setAttribute("message", "The feedback has been added successfully");
+            session.setAttribute("type", "success fade show");
+        } else {
+            session.setAttribute("message", "The feedback can't be added till the request will be closed");
+            session.setAttribute("type", "danger fade show");
+            response.sendRedirect("userlist");
+        }
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

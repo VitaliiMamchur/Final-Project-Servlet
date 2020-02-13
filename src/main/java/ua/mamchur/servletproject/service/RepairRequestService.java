@@ -10,7 +10,7 @@ public interface RepairRequestService {
 
     void acceptRequestByManager(Long requestId, Integer price);
 
-    void addFeedbackByUser(Long requestID, String feedback);
+    boolean addFeedbackByUser(Long requestID, String feedback);
 
     void declineRequestByManager(Long requestID);
 

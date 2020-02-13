@@ -57,11 +57,13 @@ public class RepairRequestServiceImpl implements RepairRequestService {
     }
 
     @Override
-    public void addFeedbackByUser(Long requestID, String feedback) {
+    public boolean addFeedbackByUser(Long requestID, String feedback) {
         String requestStatus = repairRequestDao.findById(requestID).get().getStatus().getStatus();
         if (requestStatus.equals("CLOSED_REQUEST")) {
             repairRequestDao.addFeedback(requestID, feedback);
+            return true;
         }
+        return false;
     }
 
     @Override

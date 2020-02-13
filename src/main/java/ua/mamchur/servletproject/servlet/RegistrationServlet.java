@@ -21,9 +21,12 @@ public class RegistrationServlet extends HttpServlet {
         String password = request.getParameter("password");
         User user = userService.create(username, password);
         if (user == null) {
-            response.sendRedirect("registration");
+            request.setAttribute("message", "User already exist. Try another username!");
+            request.setAttribute("type", "danger fade show");
+            request.getServletContext().getRequestDispatcher("/registration.jsp").forward(request, response);
+        } else {
+            response.sendRedirect("login");
         }
-        response.sendRedirect("login");
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

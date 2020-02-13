@@ -18,11 +18,13 @@ public class RepairRequestServlet extends HttpServlet {
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
+        HttpSession session = request.getSession();
         String theme = request.getParameter("theme");
         String description = request.getParameter("description");
-        HttpSession session = request.getSession();
         String username = (String) session.getAttribute("user");
         repairRequestService.create(theme, description, username);
+        session.setAttribute("message", "The request has been created successfully");
+        session.setAttribute("type", "success fade show");
         response.sendRedirect("request");
     }
 

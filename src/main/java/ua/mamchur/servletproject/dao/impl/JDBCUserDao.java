@@ -56,9 +56,9 @@ public class JDBCUserDao implements UserDao {
                 String username = resultSet.getString("username");
                 result = new User(id, username, password);
                 return Optional.of(result);
+            } else {
+                return Optional.empty();
             }
-            return Optional.empty();
-
         } catch (SQLException e) {
             throw new IllegalStateException(e);
         }
@@ -80,9 +80,9 @@ public class JDBCUserDao implements UserDao {
                 Role role = new Role(roleId, roleName);
                 result = new User(id, username, password, role);
                 return Optional.of(result);
+            } else {
+                return Optional.empty();
             }
-            return Optional.empty();
-
         } catch (SQLException e) {
             throw new IllegalStateException(e);
         }

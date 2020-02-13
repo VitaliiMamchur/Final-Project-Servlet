@@ -19,7 +19,7 @@ public class UserServiceImpl implements UserService {
         User user = new User();
         Long roleId = 0L;
         Optional<User> userFromDB = userDao.findByUsername(username);
-        if (userFromDB.isPresent()) {
+        if (!userFromDB.isPresent()) {
             Role role = roleDao.findById(roleId).get();
             user.setUsername(username);
             user.setPassword(password);

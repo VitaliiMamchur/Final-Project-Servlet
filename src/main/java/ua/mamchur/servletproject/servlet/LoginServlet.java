@@ -21,8 +21,9 @@ public class LoginServlet extends HttpServlet {
         String password = request.getParameter("password");
         String role = userService.login(username, password);
         if (role == null) {
-
-            response.sendRedirect("registration");
+            request.setAttribute("message", "User doesn't exist. Try again!");
+            request.setAttribute("type", "danger fade show");
+            request.getServletContext().getRequestDispatcher("/login.jsp").forward(request, response);
         } else {
             HttpSession session = request.getSession();
             session.setAttribute("user", username);
