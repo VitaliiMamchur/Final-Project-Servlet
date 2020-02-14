@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.List;
+import java.util.ResourceBundle;
 
 @WebServlet(urlPatterns = {"/masterlist"}, name = "masterlist")
 public class MasterRepairRequestServlet extends HttpServlet {
@@ -20,9 +21,10 @@ public class MasterRepairRequestServlet extends HttpServlet {
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession();
+        ResourceBundle resourceBundle = (ResourceBundle) session.getAttribute("resourceBundle");
         Long requestID = Long.parseLong(request.getParameter("id"));
         repairRequestService.closeRequestByMaster(requestID);
-        session.setAttribute("message", "The request has been closed successfully");
+        session.setAttribute("message", resourceBundle.getString("masterlist.success.alert"));
         session.setAttribute("type", "success fade show");
         response.sendRedirect("masterlist");
     }

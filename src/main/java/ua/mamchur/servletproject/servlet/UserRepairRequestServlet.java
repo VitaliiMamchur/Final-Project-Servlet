@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.List;
+import java.util.ResourceBundle;
 
 @WebServlet(urlPatterns = {"/userlist"}, name = "userlist")
 public class UserRepairRequestServlet extends HttpServlet {
@@ -20,13 +21,14 @@ public class UserRepairRequestServlet extends HttpServlet {
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession();
+        ResourceBundle resourceBundle = (ResourceBundle) session.getAttribute("resourceBundle");
         Long requestID = Long.parseLong(request.getParameter("id"));
         String feedback = request.getParameter("feedback");
         if (repairRequestService.addFeedbackByUser(requestID, feedback)) {
-            session.setAttribute("message", "The feedback has been added successfully");
+            session.setAttribute("message", resourceBundle.getString("userlist.success.alert"));
             session.setAttribute("type", "success fade show");
         } else {
-            session.setAttribute("message", "The feedback can't be added till the request will be closed");
+            session.setAttribute("message", resourceBundle.getString("userlist.danger.alert"));
             session.setAttribute("type", "danger fade show");
             response.sendRedirect("userlist");
         }

@@ -1,10 +1,13 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<fmt:setLocale value="${sessionScope.lang}"/>
+<fmt:setBundle basename="messages"/>
 <!DOCTYPE html>
 
 <head>
     <meta charset="UTF-8">
-    <title>Master Statement List</title>
+    <title><fmt:message key="masterlist.title"/></title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
     <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
@@ -12,7 +15,7 @@
 
 <body>
 
-    <%@ include file="menu.jspf" %>
+    <%@ include file="menu.jspf" %><br/>
 
     <div class="container">
         <c:if test="${message ne null}">
@@ -26,9 +29,9 @@
         <table class="table">
             <thead class="thead-dark">
             <tr>
-                <th>Theme</th>
-                <th>Description</th>
-                <th>Request Creator</th>
+                <th><fmt:message key="masterlist.tablehead.theme"/></th>
+                <th><fmt:message key="masterlist.tablehead.description"/></th>
+                <th><fmt:message key="masterlist.tablehead.request.creator"/></th>
                 <th></th>
             </tr>
             </thead>
@@ -38,7 +41,7 @@
                     <td>${repairRequest.description}</td>
                     <td>${repairRequest.requestCreator.getUsername()}</td>
                     <form action="${pageContext.request.contextPath}/masterlist?id=${repairRequest.id}" method="post">
-                        <td ><div><button type="submit">Close the request</button></div></td>
+                        <td ><div><button type="submit"><fmt:message key="masterlist.button.close"/></button></div></td>
                     </form>
                 </tr>
             </c:forEach>

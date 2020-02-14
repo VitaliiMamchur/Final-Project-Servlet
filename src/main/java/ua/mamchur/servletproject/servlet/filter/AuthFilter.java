@@ -24,7 +24,6 @@ public class AuthFilter implements Filter {
 
         HttpSession session = request.getSession(false);
 
-
         if (session == null || session.getAttribute("user") == null) {
             servletRequest.getServletContext().getRequestDispatcher("/login").include(request, response);
         }
