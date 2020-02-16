@@ -1,5 +1,6 @@
 package ua.mamchur.servletproject.servlet;
 
+import org.apache.log4j.Logger;
 import ua.mamchur.servletproject.service.UserService;
 import ua.mamchur.servletproject.service.impl.UserServiceImpl;
 
@@ -15,6 +16,7 @@ import java.util.ResourceBundle;
 @WebServlet(urlPatterns = {"/login"}, name = "login")
 public class LoginServlet extends HttpServlet {
 
+    private static final Logger LOGGER = Logger.getLogger(LoginServlet.class);
     UserService userService = new UserServiceImpl();
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -24,10 +26,12 @@ public class LoginServlet extends HttpServlet {
         String password = request.getParameter("password");
         String role = userService.login(username, password);
         if (role == null) {
+            LOGGER.warn("There is no users with username: " + username);
             session.setAttribute("message", resourceBundle.getString("login.danger.alert"));
             session.setAttribute("type", "danger fade show");
             response.sendRedirect("login");
         } else {
+            LOGGER.info("User " + username + " logged in successfully");
             session.setAttribute("user", username);
             session.setAttribute("role", role);
             response.sendRedirect("index");

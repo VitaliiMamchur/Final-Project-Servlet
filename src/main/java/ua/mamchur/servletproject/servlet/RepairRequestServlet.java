@@ -1,5 +1,6 @@
 package ua.mamchur.servletproject.servlet;
 
+import org.apache.log4j.Logger;
 import ua.mamchur.servletproject.service.RepairRequestService;
 import ua.mamchur.servletproject.service.impl.RepairRequestServiceImpl;
 
@@ -15,6 +16,7 @@ import java.util.ResourceBundle;
 @WebServlet(urlPatterns = {"/request"}, name = "request")
 public class RepairRequestServlet extends HttpServlet {
 
+    private static final Logger LOGGER = Logger.getLogger(RepairRequestServlet.class);
     RepairRequestService repairRequestService = new RepairRequestServiceImpl();
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -24,6 +26,7 @@ public class RepairRequestServlet extends HttpServlet {
         String description = request.getParameter("description");
         String username = (String) session.getAttribute("user");
         repairRequestService.create(theme, description, username);
+        LOGGER.info("The request was added");
         session.setAttribute("message", resourceBundle.getString("request.success.alert"));
         session.setAttribute("type", "success fade show");
         response.sendRedirect("request");

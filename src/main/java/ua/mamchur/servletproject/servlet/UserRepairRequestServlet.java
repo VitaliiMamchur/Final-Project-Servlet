@@ -1,5 +1,6 @@
 package ua.mamchur.servletproject.servlet;
 
+import org.apache.log4j.Logger;
 import ua.mamchur.servletproject.model.RepairRequest;
 import ua.mamchur.servletproject.service.RepairRequestService;
 import ua.mamchur.servletproject.service.impl.RepairRequestServiceImpl;
@@ -17,6 +18,7 @@ import java.util.ResourceBundle;
 @WebServlet(urlPatterns = {"/userlist"}, name = "userlist")
 public class UserRepairRequestServlet extends HttpServlet {
 
+    private static final Logger LOGGER = Logger.getLogger(UserRepairRequestServlet.class);
     RepairRequestService repairRequestService = new RepairRequestServiceImpl();
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -25,9 +27,13 @@ public class UserRepairRequestServlet extends HttpServlet {
         Long requestID = Long.parseLong(request.getParameter("id"));
         String feedback = request.getParameter("feedback");
         if (repairRequestService.addFeedbackByUser(requestID, feedback)) {
+            LOGGER.info("The feedback was added successfully");
             session.setAttribute("message", resourceBundle.getString("userlist.success.alert"));
             session.setAttribute("type", "success fade show");
+            response.sendRedirect("userlist");
+
         } else {
+            LOGGER.warn("Feedback can't be added till the request will be closed");
             session.setAttribute("message", resourceBundle.getString("userlist.danger.alert"));
             session.setAttribute("type", "danger fade show");
             response.sendRedirect("userlist");

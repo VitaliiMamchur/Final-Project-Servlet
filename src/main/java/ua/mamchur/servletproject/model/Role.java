@@ -45,7 +45,4 @@ public class Role {
         this.users = users;
     }
 
-    public interface Names {
-        String ROLE_USER = "ROLE_USER";
-    }
 }

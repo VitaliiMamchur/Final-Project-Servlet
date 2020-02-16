@@ -28,7 +28,6 @@
     <div class="card bg-light">
         <article class="card-body mx-auto" style="max-width: 400px;">
             <h4 class="card-title mt-3 text-center"><fmt:message key="registration.registration"/></h4>
-            <%--<p class="text-center"><fmt:message key="registration.additional.message"/></p>--%>
             <br>
             <form action="${pageContext.request.contextPath}/registration" method="post">
                 <div class="form-group input-group">

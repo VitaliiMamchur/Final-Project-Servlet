@@ -1,5 +1,6 @@
 package ua.mamchur.servletproject.servlet;
 
+import org.apache.log4j.Logger;
 import ua.mamchur.servletproject.model.RepairRequest;
 import ua.mamchur.servletproject.service.RepairRequestService;
 import ua.mamchur.servletproject.service.impl.RepairRequestServiceImpl;
@@ -17,6 +18,7 @@ import java.util.ResourceBundle;
 @WebServlet(urlPatterns = {"/masterlist"}, name = "masterlist")
 public class MasterRepairRequestServlet extends HttpServlet {
 
+    private static final Logger LOGGER = Logger.getLogger(MasterRepairRequestServlet.class);
     RepairRequestService repairRequestService = new RepairRequestServiceImpl();
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -24,6 +26,7 @@ public class MasterRepairRequestServlet extends HttpServlet {
         ResourceBundle resourceBundle = (ResourceBundle) session.getAttribute("resourceBundle");
         Long requestID = Long.parseLong(request.getParameter("id"));
         repairRequestService.closeRequestByMaster(requestID);
+        LOGGER.info("The request with id " + requestID + " was closed successfully");
         session.setAttribute("message", resourceBundle.getString("masterlist.success.alert"));
         session.setAttribute("type", "success fade show");
         response.sendRedirect("masterlist");

@@ -1,5 +1,7 @@
 package ua.mamchur.servletproject.model;
 
+import java.util.ResourceBundle;
+
 public class RepairRequest {
     private Long id;
     private String theme;
@@ -104,7 +106,7 @@ public class RepairRequest {
                 stringStatus = "Your request has been done. Thank you!";
                 return stringStatus;
             case 3:
-                stringStatus = "Your repair request is declined.";
+                stringStatus = "Your repair request is declined";
                 return stringStatus;
         }
         return "Error";

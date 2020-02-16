@@ -31,6 +31,7 @@
             <tr>
                 <th><fmt:message key="masterlist.tablehead.theme"/></th>
                 <th><fmt:message key="masterlist.tablehead.description"/></th>
+                <th><fmt:message key="masterlist.tablehead.price"/></th>
                 <th><fmt:message key="masterlist.tablehead.request.creator"/></th>
                 <th></th>
             </tr>
@@ -39,6 +40,7 @@
                 <tr>
                     <td>${repairRequest.theme}</td>
                     <td>${repairRequest.description}</td>
+                    <td>${repairRequest.price}</td>
                     <td>${repairRequest.requestCreator.getUsername()}</td>
                     <form action="${pageContext.request.contextPath}/masterlist?id=${repairRequest.id}" method="post">
                         <td ><div><button type="submit"><fmt:message key="masterlist.button.close"/></button></div></td>

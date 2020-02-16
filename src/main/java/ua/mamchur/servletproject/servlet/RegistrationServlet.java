@@ -1,5 +1,6 @@
 package ua.mamchur.servletproject.servlet;
 
+import org.apache.log4j.Logger;
 import ua.mamchur.servletproject.model.User;
 import ua.mamchur.servletproject.service.UserService;
 import ua.mamchur.servletproject.service.impl.UserServiceImpl;
@@ -16,6 +17,7 @@ import java.util.ResourceBundle;
 @WebServlet(urlPatterns = {"/registration"}, name = "registration")
 public class RegistrationServlet extends HttpServlet {
 
+    private static final Logger LOGGER = Logger.getLogger(RegistrationServlet.class);
     UserService userService = new UserServiceImpl();
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -25,10 +27,12 @@ public class RegistrationServlet extends HttpServlet {
         String password = request.getParameter("password");
         User user = userService.create(username, password);
         if (user == null) {
+            LOGGER.warn("Can't do registration. User with such username already exist");
             session.setAttribute("message", resourceBundle.getString("registration.danger.alert"));
             session.setAttribute("type", "danger fade show");
             response.sendRedirect("registration");
         } else {
+            LOGGER.info("New user was created. Username: " + username);
             response.sendRedirect("login");
         }
     }
