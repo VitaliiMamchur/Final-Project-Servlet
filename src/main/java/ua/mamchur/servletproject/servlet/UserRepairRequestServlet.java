@@ -19,13 +19,14 @@ import java.util.ResourceBundle;
 public class UserRepairRequestServlet extends HttpServlet {
 
     private static final Logger LOGGER = Logger.getLogger(UserRepairRequestServlet.class);
-    RepairRequestService repairRequestService = new RepairRequestServiceImpl();
+    private RepairRequestService repairRequestService = new RepairRequestServiceImpl();
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession();
         ResourceBundle resourceBundle = (ResourceBundle) session.getAttribute("resourceBundle");
         Long requestID = Long.parseLong(request.getParameter("id"));
         String feedback = request.getParameter("feedback");
+
         if (repairRequestService.addFeedbackByUser(requestID, feedback)) {
             LOGGER.info("The feedback was added successfully");
             session.setAttribute("message", resourceBundle.getString("userlist.success.alert"));

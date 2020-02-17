@@ -10,11 +10,8 @@ import java.io.IOException;
 
 @WebServlet(urlPatterns = {"/logout"}, name = "logout")
 public class LogoutServlet extends HttpServlet {
+
     private static final Logger LOGGER = Logger.getLogger(LogoutServlet.class);
-
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-    }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         LOGGER.info("User logged out successfully");

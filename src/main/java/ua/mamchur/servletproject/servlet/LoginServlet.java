@@ -17,7 +17,7 @@ import java.util.ResourceBundle;
 public class LoginServlet extends HttpServlet {
 
     private static final Logger LOGGER = Logger.getLogger(LoginServlet.class);
-    UserService userService = new UserServiceImpl();
+    private UserService userService = new UserServiceImpl();
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession();

@@ -6,6 +6,10 @@ import java.io.IOException;
 
 @WebFilter("/*")
 public class EncodingFilter implements Filter {
+
+    /**
+     *We don't need to init anything. That's why method "init()" is empty
+     */
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
     }

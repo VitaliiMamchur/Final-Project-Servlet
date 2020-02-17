@@ -19,7 +19,7 @@ import java.util.ResourceBundle;
 public class MasterRepairRequestServlet extends HttpServlet {
 
     private static final Logger LOGGER = Logger.getLogger(MasterRepairRequestServlet.class);
-    RepairRequestService repairRequestService = new RepairRequestServiceImpl();
+    private RepairRequestService repairRequestService = new RepairRequestServiceImpl();
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession();

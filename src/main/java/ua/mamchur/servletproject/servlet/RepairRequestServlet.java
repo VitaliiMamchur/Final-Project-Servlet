@@ -17,7 +17,7 @@ import java.util.ResourceBundle;
 public class RepairRequestServlet extends HttpServlet {
 
     private static final Logger LOGGER = Logger.getLogger(RepairRequestServlet.class);
-    RepairRequestService repairRequestService = new RepairRequestServiceImpl();
+    private RepairRequestService repairRequestService = new RepairRequestServiceImpl();
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession();
@@ -34,6 +34,5 @@ public class RepairRequestServlet extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.getRequestDispatcher("request.jsp").forward(request, response);
-
     }
 }

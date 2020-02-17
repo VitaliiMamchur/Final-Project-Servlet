@@ -11,7 +11,13 @@ import java.util.ResourceBundle;
 
 @WebFilter(filterName = "LocaleFilter", urlPatterns = {"/*"})
 public class LocaleFilter implements Filter {
-    public void destroy() {
+
+    /**
+     *We don't need to init anything. That's why method "init()" is empty
+     */
+    @Override
+    public void init(FilterConfig config) throws ServletException {
+
     }
 
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain chain) throws ServletException, IOException {
@@ -34,8 +40,7 @@ public class LocaleFilter implements Filter {
         chain.doFilter(request, response);
     }
 
-    public void init(FilterConfig config) throws ServletException {
-
+    @Override
+    public void destroy() {
     }
-
 }

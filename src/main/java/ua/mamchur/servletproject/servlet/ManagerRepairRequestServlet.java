@@ -19,11 +19,12 @@ import java.util.ResourceBundle;
 public class ManagerRepairRequestServlet extends HttpServlet {
 
     private static final Logger LOGGER = Logger.getLogger(ManagerRepairRequestServlet.class);
-    RepairRequestService repairRequestService = new RepairRequestServiceImpl();
+    private RepairRequestService repairRequestService = new RepairRequestServiceImpl();
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession();
         ResourceBundle resourceBundle = (ResourceBundle) session.getAttribute("resourceBundle");
+
         if (request.getParameter("acceptId") != null) {
             Integer price = Integer.parseInt(request.getParameter("price"));
             Long requestId = Long.parseLong(request.getParameter("acceptId"));
@@ -32,6 +33,7 @@ public class ManagerRepairRequestServlet extends HttpServlet {
             session.setAttribute("message", resourceBundle.getString("managerlist.success.alert"));
             session.setAttribute("type", "success fade show");
             response.sendRedirect("managerlist");
+
         } else if (request.getParameter("declineId") != null) {
             Long requestID = Long.parseLong(request.getParameter("declineId"));
             repairRequestService.declineRequestByManager(requestID);

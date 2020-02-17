@@ -9,6 +9,9 @@ import java.io.IOException;
 
 @WebFilter(urlPatterns = {"/request", "/managerlist", "/masterlist", "/userlist"})
 public class AuthFilter implements Filter {
+    /**
+     *We don't need to init anything. That's why method "init()" is empty
+     */
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
 
@@ -25,7 +28,7 @@ public class AuthFilter implements Filter {
         HttpSession session = request.getSession(false);
 
         if (session == null || session.getAttribute("user") == null) {
-            servletRequest.getServletContext().getRequestDispatcher("/login").include(request, response);
+            servletRequest.getServletContext().getRequestDispatcher("/login").forward(request, response);
         }
 
         filterChain.doFilter(request, response);

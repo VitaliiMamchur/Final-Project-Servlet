@@ -9,7 +9,13 @@ import java.io.IOException;
 
 @WebFilter(urlPatterns = {"/registration", "/login"})
 public class AuthorizedFilter implements Filter {
-    public void destroy() {
+
+    /**
+     *We don't need to init anything. That's why method "init()" is empty
+     */
+    @Override
+    public void init(FilterConfig config) throws ServletException {
+
     }
 
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain chain) throws ServletException, IOException {
@@ -18,14 +24,12 @@ public class AuthorizedFilter implements Filter {
         HttpSession session = request.getSession();
 
         if (session.getAttribute("user") != null) {
-            servletRequest.getServletContext().getRequestDispatcher("/index").include(request, response);
+            servletRequest.getServletContext().getRequestDispatcher("/index").forward(request, response);
         }
 
         chain.doFilter(request, response);
     }
-
-    public void init(FilterConfig config) throws ServletException {
-
+    @Override
+    public void destroy() {
     }
-
 }

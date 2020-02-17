@@ -11,32 +11,30 @@ import java.util.Optional;
 
 public class UserServiceImpl implements UserService {
 
-    UserDao userDao = DaoFactory.getInstance().createUserDao();
-    RoleDao roleDao = DaoFactory.getInstance().createRoleDao();
+    private UserDao userDao = DaoFactory.getInstance().createUserDao();
+    private RoleDao roleDao = DaoFactory.getInstance().createRoleDao();
 
     @Override
     public User create(String username, String password) {
         User user = new User();
-        Long roleId = 0L;
         Optional<User> userFromDB = userDao.findByUsername(username);
-        if (!userFromDB.isPresent()) {
-            Role role = roleDao.findById(roleId).get();
+        if (userFromDB.isPresent()) {
+           return null;
+        } else {
+            Role role = roleDao.findById(ROLE_USER_ID).get();
             user.setUsername(username);
             user.setPassword(password);
             user.setActive(true);
             user.setRole(role);
             userDao.save(user);
             return user;
-        } else {
-            return null;
         }
     }
 
     @Override
     public String login(String username, String password) {
         if (userDao.checkUser(username, password)) {
-            String role = userDao.findByUsername(username).get().getRole().getRole();
-            return role;
+            return userDao.findByUsername(username).get().getRole().getRole();
         } else {
             return null;
         }
