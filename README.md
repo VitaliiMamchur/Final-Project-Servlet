@@ -13,3 +13,16 @@
 - После - создайте необходимую БД, с помощью скриптов, 
 которые находятся в "/resources/db/db.sql"
 - Далее запустите проект командой "mvn tomcat7:run"
+
+Используемые технологии:
+
+- Servlet 3.0
+- Apache Tomcat 8
+- Maven
+- JUnit4
+- Log4j
+- MySQL
+- HTML
+- CSS
+- JSP/JSTL
+- Bootstrap 4
